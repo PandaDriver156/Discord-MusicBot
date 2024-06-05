@@ -4,7 +4,6 @@
 
 all: rebuild
 
-
 down:
 	@./dc.sh down
 
