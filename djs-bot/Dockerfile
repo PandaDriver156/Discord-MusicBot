@@ -1,4 +1,4 @@
-FROM node:20-alpine as builder
+FROM node:20-slim as builder
 
 RUN apt-get update -y
 RUN apt-get install -y build-essential libpango1.0-dev libcairo2-dev librsvg2-dev libjpeg-dev libgif-dev fonts-noto-cjk fonts-noto 
