@@ -4,8 +4,7 @@ services:
   djs-bot:
     container_name: djs-bot
     build:
-      context: ..
-      dockerfile: ./docker/djs-bot/Dockerfile
+      context: ../djs-bot
     restart: "unless-stopped"
     init: true
     environment:
