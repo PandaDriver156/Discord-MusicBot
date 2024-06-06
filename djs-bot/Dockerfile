@@ -1,13 +1,20 @@
 FROM node:20-slim as builder
 
 RUN apt-get update -y
-RUN apt-get install -y build-essential libpango1.0-dev libcairo2-dev librsvg2-dev libjpeg-dev libgif-dev fonts-noto-cjk fonts-noto 
+# Prisma needs SSL 
+RUN apt-get install -y openssl
 
 WORKDIR /djs-bot
 
 COPY package*.json ./
 
 RUN npm ci
+
+RUN rm node_modules/uWebSockets.js/uws_darwin_*.node
+RUN rm node_modules/uWebSockets.js/uws_win32_*.node
+RUN rm node_modules/uWebSockets.js/uws_linux_arm_*.node
+# Remove this if using on a Raspberry Pi
+RUN rm node_modules/uWebSockets.js/uws_linux_arm64_*.node
 
 COPY . .
 
