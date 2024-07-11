@@ -7,35 +7,24 @@ services:
       context: ../djs-bot
     restart: "unless-stopped"
     init: true
-    environment:
-      - TOKEN=${TOKEN}
-      - CLIENTID=${CLIENTID}
-      - CLIENTSECRET=${CLIENTSECRET}
-      - DEVUID=${DEVUID}
-      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+    env_file:
+      ../djs-bot/.env
     stdin_open: true
     tty: true
-    volumes:
-      - ../djs-bot:/djs-bot
-    ports:
-      - "8080:8080"
-      - "3001:3001"
-    working_dir: /djs-bot
-    command: ["npm", "run", "${ENABLE:-start}"]
 
-  dashboard:
-    container_name: dashboard
-    image: node:latest
-    restart: "unless-stopped"
-    init: true
-    stdin_open: true
-    tty: true
-    volumes:
-      - ../dashboard:/dashboard
-    ports:
-      - "3000:3000"
-    working_dir: /dashboard
-    command: ["npm", "run", "build-and-start"]
+  # dashboard:
+  #   container_name: dashboard
+  #   image: node:latest
+  #   restart: "unless-stopped"
+  #   init: true
+  #   stdin_open: true
+  #   tty: true
+  #   volumes:
+  #     - ../dashboard:/dashboard
+  #   ports:
+  #     - "3000:3000"
+  #   working_dir: /dashboard
+  #   command: ["npm", "run", "build-and-start"]
 
   postgres-db:
     image: postgres:15.2-alpine
@@ -47,7 +36,7 @@ services:
       POSTGRES_DB:        base
       PGPORT:             5432
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./postgres_data:/var/lib/postgresql/data
 
   lavalink:
     image: fredboat/lavalink:3.7.12
