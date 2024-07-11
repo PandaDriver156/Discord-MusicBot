@@ -8,9 +8,8 @@ WORKDIR /app
 
 COPY ./ ./
 
-RUN npm ci
-
-RUN rm node_modules/uWebSockets.js/uws_darwin_*.node && \
+RUN npm ci && \
+    rm node_modules/uWebSockets.js/uws_darwin_*.node && \
     rm node_modules/uWebSockets.js/uws_win32_*.node && \
     rm node_modules/uWebSockets.js/uws_linux_arm_*.node && \
     # Remove next line if using on a Raspberry Pi
